@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+var UNIQUE_PREFIX = "per-domain-bookmarks"
+
 /**
  * Get the current URL.
  *
@@ -34,7 +36,7 @@ function getDomain(url){
 }
 
 function getBookmarkKey(domain) {
-  return chrome.runtime.id + ":" + domain + ":bookmark"
+  return UNIQUE_PREFIX + ":" + domain + ":bookmark"
 }
 
 function getBookmarkFor(domain) {
