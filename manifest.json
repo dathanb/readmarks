@@ -1,14 +1,14 @@
 {
     "manifest_version": 2,
 
-    "name": "Getting started example",
-    "description": "This extension shows a Google Image search result for the current page",
+    "name": "Readermarks",
+    "description": "Allows saving a single, per-domain bookmark",
     "version": "1.0",
 
     "browser_action": {
         "default_icon": "icon.png",
         "default_popup": "popup.html",
-        "default_title": "Click here!"
+        "default_title": "Readermark menu"
     },
     "background": { "scripts": [ "jquery-2.1.4.js" ]},
     "permissions": [
