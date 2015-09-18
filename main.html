@@ -27,13 +27,15 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="jquery-2.1.4.js" type="text/javascript"></script>
-    <script src="popup.js" type="text/javascript"></script>
+    <!--<script src="popup.js" type="text/javascript"></script>-->
   </head>
-  <body>
+  <body data-ng-app="readmarks" data-ng-controller="page">
     <div id="bookmark"></div>
-    <button id="save-bookmark">Save new bookmark</button>
-    <button id="load-bookmark">Load bookmark</button>
+    <button id="save-bookmark" data-ng-click="saveBookmark()">Save new bookmark</button>
+    <button id="load-bookmark" data-ng-click="loadBookmark()">Load bookmark</button>
+
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/angular.js"></script>
   </body>
 </html>
 
