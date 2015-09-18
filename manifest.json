@@ -1,16 +1,18 @@
 {
     "manifest_version": 2,
 
-    "name": "ReaderMarks",
+    "name": "ReadMarks",
     "description": "Allows saving a single, per-domain bookmark",
     "version": "1.0",
+    "icons": {
+        "128": "bookmark-128.png"
+    },
 
     "browser_action": {
         "default_icon": "bookmark-128.png",
         "default_popup": "main.html",
         "default_title": "ReaderMarks menu"
     },
-    "background": { "scripts": [ "jquery-2.1.4.js" ]},
     "permissions": [
         "activeTab",
         "https://ajax.googleapis.com/"
