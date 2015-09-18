@@ -24,15 +24,17 @@ angular.module("readmarksModule")
             }
 
             function updateBookmark(bookmark, url) {
-                return chromeService.updateBookmark(bookmark.id, bookmark.title, url)
+                return chromeService.getCurrentTab().then(function(tab) {
+                    return chromeService.updateBookmark(bookmark.id, tab.title, url)
+                })
             }
 
             function createBookmark(url) {
-                return getReadmarkFolder().then(
-                    function(folder) {
-                        return chromeService.createBookmark(folder.id, null, "Test", url)
-                    }
-                )
+                return getReadmarkFolder().then(function(folder) {
+                    return chromeService.getCurrentTab().then(function(tab){
+                        return chromeService.createBookmark(folder.id, null, tab.title, url)
+                    })
+                })
             }
 
             function getExistingBookmark(url) {

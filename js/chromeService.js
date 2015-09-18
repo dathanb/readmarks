@@ -21,8 +21,6 @@ angular.module("chromeModule", [])
             };
             chrome.tabs.query(queryInfo, callback)
             return deferred.promise
-
-
         }
 
         function getCurrentTabUrl() {
