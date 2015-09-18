@@ -3,27 +3,30 @@ angular.module('readmarksModule')
     ['$scope', '$document', 'chromeService', 'storageService',
     function($scope, $document, chromeService, storageService) {
 
-        $document.ready(function(){
-            var queryInfo = {
-                active: true,
-                currentWindow: true
-            };
-
-            chrome.tabs.query(queryInfo, function(tabs) {
-                $scope.readmark_url = tabs[0].url
-                $scope.$apply()
-            });
-
+        $document.ready(function() {
+            chromeService.getCurrentTabUrl().then(function(url) {
+                $scope.readmark_url = storageService.getReadmarkFor(url)
+            })
         })
 
         $scope.readmark_url = ""
 
-        $scope.saveBookmark = function() {
-
+        function updateScopeUrl(url){
+            $scope.readmark_url = url
         }
 
-        $scope.loadBookmark = function() {
+        $scope.saveReadmark = function() {
+            chromeService.getCurrentTabUrl().then(function(url){
+                storageService.saveReadmark(url)
+                updateScopeUrl(url)
+            })
+        }
 
+        $scope.loadReadmark = function() {
+            chromeService.getCurrentTabUrl().then(function(url){
+                var readmark = storageService.loadReadmark(url)
+                chromeService.setCurrentTabUrl(readmark)
+            })
         }
 
     }])
