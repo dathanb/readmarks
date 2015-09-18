@@ -1,25 +1,14 @@
 angular.module("readmarksModule")
 .service('storageService', [
-    function(){
+        'urlService',
+    function(urlService){
 
         var UNIQUE_PREFIX = "per-domain-bookmarks"
-        this.getReadmarkFor = getReadmarkFor
-        this.saveReadmark = saveReadmark
+        this.getReadmarkFor = getReadmarkFor;
+        this.saveReadmark = saveReadmark;
 
         function getBookmarkKey(domain) {
             return UNIQUE_PREFIX + ":" + domain + ":bookmark"
-        }
-
-        /**
-         * Gets the host part of the given url
-         * @param url
-         * @returns {*|string}
-         */
-        function getHost(url){
-            var tmp = document.createElement('a');
-            tmp.href=url;
-            console.debug ("Hostname is " + tmp.hostname)
-            return tmp.hostname;
         }
 
         function getBookmarkForHost(host) {
@@ -34,11 +23,11 @@ angular.module("readmarksModule")
         }
 
         function getReadmarkFor(url) {
-            return getBookmarkForHost(getHost(url))
+            return getBookmarkForHost(urlService.getHost(url))
         }
 
         function saveReadmark(url) {
-            saveReadmarkFor(getHost(url), url)
+            saveReadmarkFor(urlService.getHost(url), url)
         }
     }]
 )
