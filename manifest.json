@@ -13,8 +13,10 @@
         "default_popup": "main.html",
         "default_title": "ReaderMarks menu"
     },
+
     "permissions": [
         "activeTab",
+        "bookmarks",
         "https://ajax.googleapis.com/"
     ]
 }

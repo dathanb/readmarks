@@ -5,7 +5,9 @@ angular.module('readmarksModule')
 
         $document.ready(function() {
             chromeService.getCurrentTabUrl().then(function(url) {
-                $scope.readmark_url = storageService.getReadmarkFor(url)
+                return storageService.getReadmarkFor(url)
+            }).then(function(url){
+                $scope.readmark_url = url
             })
         })
 
@@ -23,9 +25,10 @@ angular.module('readmarksModule')
         }
 
         $scope.loadReadmark = function() {
-            chromeService.getCurrentTabUrl().then(function(url){
-                var readmark = storageService.loadReadmark(url)
-                chromeService.setCurrentTabUrl(readmark)
+            chromeService.getCurrentTabUrl().then(function(url) {
+                return storageService.getReadmarkFor(url)
+            }).then(function(url){
+                chromeService.setCurrentTabUrl(url)
             })
         }
 
