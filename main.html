@@ -4,7 +4,7 @@
  "browser_action" field in manifest.json contains the "default_popup" key with
  value "popup.html".
  -->
-<html>
+<html data-ng-app="readmarksModule">
   <head>
     <title>Getting Started Extension's Popup</title>
     <style>
@@ -27,13 +27,20 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="jquery-2.1.4.js" type="text/javascript"></script>
-    <script src="popup.js" type="text/javascript"></script>
+    <!--<script src="popup.js" type="text/javascript"></script>-->
   </head>
-  <body>
-    <div id="bookmark"></div>
-    <button id="save-bookmark">Save new bookmark</button>
-    <button id="load-bookmark">Load bookmark</button>
+
+  <body data-ng-controller="PageController">
+    <div id="bookmark">{{ readmark_url }}</div>
+    <button id="save-bookmark" data-ng-click="saveReadmark()">Save new bookmark</button>
+    <button id="load-bookmark" data-ng-click="loadReadmark()">Load bookmark</button>
+
+    <!--<script src="js/jquery-2.1.4.js"></script>-->
+    <script src="js/angular.js"></script>
+    <script src="js/readmarksModule.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/local_storage_readmark_storage_service.js"></script>
+    <script src="js/chromeService.js"></script>
   </body>
 </html>
 
