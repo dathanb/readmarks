@@ -1,4 +1,6 @@
-angular.module("readmarks")
-.factory('storageService', ['$scope',
-    function($scope){
-    }])
+angular.module("readmarksModule")
+.factory('storageService', [
+    function(){
+        return {}
+    }]
+)
