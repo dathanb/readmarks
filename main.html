@@ -43,15 +43,13 @@
       </div>
     </nav>
     <div class="container">
-      <div class="alert-danger">
-      <div id="bookmark">{{ readmark_url }}</div>
-      </div>
+      <div data-ng-class="has_readmark ? 'alert-success' : 'alert-danger'">{{ has_readmark ? 'Current ReadMark: ' + readmark_url : 'No ReadMark configured for this host' }}</div>
 
       <div class="col-xs-6">
-		<button class="btn btn-primary" id="save-bookmark" data-ng-click="saveReadmark()">Save new bookmark</button>
+		<button class="btn btn-primary" id="save-bookmark" data-ng-click="saveReadmark()">Save new ReadMark</button>
 	  </div>
       <div class="col-xs-6">
-		<button class="btn btn-primary" id="load-bookmark" data-ng-click="loadReadmark()">Load bookmark</button>
+		<button class="btn btn-primary" id="load-bookmark" data-ng-click="loadReadmark()">Load ReadMark</button>
       </div>
 	</div>
 
@@ -62,6 +60,7 @@
     <script src="js/bookmarks_readmark_storage_service.js"></script>
     <script src="js/chromeService.js"></script>
     <script src="js/urlService.js"></script>
+    <script src="js/jquery-2.1.4.js"></script>
     <script src="js/bootstrap.js"></script>
   </body>
 </html>
