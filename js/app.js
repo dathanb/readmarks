@@ -23,6 +23,7 @@ angular.module('readmarksModule')
 
         function updateScopeUrl(url){
             $scope.readmark_url = url
+            $scope.has_readmark = true
         }
 
         function saveReadmark() {
