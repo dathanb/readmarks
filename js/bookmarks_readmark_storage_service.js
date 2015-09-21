@@ -49,7 +49,6 @@ angular.module("readmarksModule")
                         return $q.reject("Couldn't find an existing bookmark")
                     },
                     function(reason) {
-                        console.debug(reason)
                         makeReadmarksFolder()
                         return $q.reject("Couldn't find existing ReadMark folder")
                     }
@@ -87,7 +86,6 @@ angular.module("readmarksModule")
             function getOtherBookmarks() {
                 return chromeService.getBookmarkTree().then(
                     function(tree) {
-                        console.debug(tree)
                         var root = tree[0]
                         for (var i=0; i<root.children.length; i++) {
                             if (root.children[i].title == "Other Bookmarks") {
