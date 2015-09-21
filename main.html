@@ -43,7 +43,12 @@
       </div>
     </nav>
     <div class="container">
-      <div data-ng-class="has_readmark ? 'alert-success' : 'alert-danger'">{{ has_readmark ? 'Current ReadMark: ' + readmark_url : 'No ReadMark configured for this host' }}</div>
+      <div class="alert-danger" data-ng-hide="has_readmark">
+        No ReadMark configured for this host.
+      </div>
+      <div class="alert-success" data-ng-show="has_readmark">
+        Current ReadMark: {{ readmark_url }}
+      </div>
 
       <div class="col-xs-6">
 		<button class="btn btn-primary" id="save-bookmark" data-ng-click="saveReadmark()">Save new ReadMark</button>
