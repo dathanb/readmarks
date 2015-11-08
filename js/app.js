@@ -5,25 +5,43 @@ angular.module('readmarksModule')
 
         $document.ready(fetchAndDisplayReadmark);
 
-        $scope.readmark_url = ""
+        $scope.readmark_url = "";
+        $scope.current_url = null;
+        // indicates whether the tab's current url matches the configured readmark for the current host
+        $scope.on_current_readmark = false;
+
         $scope.saveReadmark = saveReadmark;
         $scope.loadReadmark = loadReadmark;
 
-        $scope.has_readmark = false
-
+        $scope.has_readmark = false;
+        $scope.matches_readmark = false;
 
         function fetchAndDisplayReadmark() {
-            chromeService.getCurrentTabUrl().then(function(url) {
-                return storageService.getReadmarkFor(url)
+            return fetchCurrentTabUrl().then(function(url){
+                return storageService.getReadmarkFor(url);
             }).then(function(url){
-                $scope.readmark_url = url
-                $scope.has_readmark = true
-            })
+                $scope.readmark_url = url;
+                $scope.has_readmark = true;
+                updateCurrentReadmarkFlag();
+                return url;
+            });
+        }
+
+        function updateCurrentReadmarkFlag() {
+            $scope.on_current_readmark = ($scope.readmark_url === $scope.current_url);
+        }
+
+        function fetchCurrentTabUrl() {
+            return chromeService.getCurrentTabUrl().then(function(url){
+                $scope.current_url = url;
+                updateCurrentReadmarkFlag();
+                return url;
+            });
         }
 
         function updateScopeUrl(url){
-            $scope.readmark_url = url
-            $scope.has_readmark = true
+            $scope.readmark_url = url;
+            $scope.has_readmark = true;
         }
 
         function saveReadmark() {
@@ -41,4 +59,4 @@ angular.module('readmarksModule')
             })
         }
 
-    }])
+    }]);

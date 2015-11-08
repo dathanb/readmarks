@@ -46,17 +46,17 @@
       <div class="alert-danger" data-ng-hide="has_readmark">
         No ReadMark configured for this host.
       </div>
-      <div class="alert-success" data-ng-show="has_readmark">
+      <div data-ng-class="on_current_readmark ? 'alert-success' : 'alert-warning'" data-ng-show="has_readmark">
         Current ReadMark: {{ readmark_url }}
       </div>
 
       <div class="col-xs-6">
-		<button class="btn btn-primary" id="save-bookmark" data-ng-click="saveReadmark()">Save new ReadMark</button>
-	  </div>
-      <div class="col-xs-6">
-		<button class="btn btn-primary" id="load-bookmark" data-ng-click="loadReadmark()">Load ReadMark</button>
+        <button class="btn btn-primary" id="save-bookmark" data-ng-click="saveReadmark()">Save new ReadMark</button>
       </div>
-	</div>
+      <div class="col-xs-6">
+        <button class="btn btn-primary" id="load-bookmark" data-ng-click="loadReadmark()">Load ReadMark</button>
+      </div>
+    </div>
 
     <!--<script src="js/jquery-2.1.4.js"></script>-->
     <script src="js/angular.js"></script>
