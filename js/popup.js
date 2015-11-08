@@ -28,24 +28,6 @@ function renderStatus(statusText) {
   document.getElementById('status').textContent = statusText;
 }
 
-function getDomain(url){
-  var tmp = document.createElement('a');
-  tmp.href=url;
-  console.debug ("Hostname is " + tmp.hostname)
-  return tmp.hostname;
-}
-
-function getBookmarkKey(domain) {
-  return UNIQUE_PREFIX + ":" + domain + ":bookmark"
-}
-
-function getBookmarkFor(domain) {
-  var key = getBookmarkKey(domain)
-  var link = localStorage.getItem(key)
-  console.debug("Got bookmark: " + link)
-  return link
-}
-
 function saveBookmarkFor(domain, url) {
   localStorage[getBookmarkKey(domain)] = url
 }
