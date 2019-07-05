@@ -104,3 +104,24 @@ We could provide a test container that renders the component in all its various 
 user doing a manual test pass.
 
 Or we could not worry about it, which is what I think I'm going to do for now.
+
+OK, basic readmark is rendering. The colors are le suck, though, so going to fix that a little bit right now.
+
+Things I want to expose as APIs that can get injected:
+1. Context generation / calculation for readmarks
+    - Can be by domain (initial default), or more complex (later)
+2. Storage
+    - Start with local storage
+    - Also support bookmarks impl
+    - And later, maybe a server somewhere
+3. Chrome API
+    - Depended on by the bookmarks storage driver, at minimum
+4. Readmarks API
+    - Depends on all the above.
+
+How do APIs that aren't components (and therefore aren't rendered in the DOM) get access to APIs they depend on?
+I guess if they're sending actions to register themselves in the Redux state for others to consume, then a given API
+can just listen for actions that register its dependencies, and save them accordingly.
+    - In the API's namespace within the redux state?
+    - Or internally?
+    - I guess it depends on how hard it is to hook as a listener into the actions.

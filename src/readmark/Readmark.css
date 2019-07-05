@@ -1,0 +1,15 @@
+
+.missing {
+    background: rgb(242, 222, 222);
+    color: rgb(169,68,66);
+}
+
+.mismatched {
+    background: rgb(252, 248, 227);
+    color: rgb(138, 109, 59);
+}
+
+.matched {
+    background: rgb(223, 240, 216);
+    color: rgb(60, 118, 61);
+}

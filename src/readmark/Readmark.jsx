@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import './Readmark.css';
 
 class ReadmarkComponent extends React.Component {
     render() {
@@ -10,23 +11,18 @@ class ReadmarkComponent extends React.Component {
         const hasReadmark = typeof(readmark) !== 'undefined' && readmark !== null;
         const url = hasReadmark ? readmark.url : null;
 
-        let style;
+        let classNames = [];
+
 
         if (!hasReadmark) {
-            style = {
-                background: 'red'
-            }
+            classNames += 'missing';
         } else if (hasReadmark && currentUrl !== url) {
-            style = {
-                background: 'yellow'
-            }
+            classNames += 'mismatched';
         } else {
-            style = {
-                background: 'green'
-            }
+            classNames += 'matched';
         }
 
-        return <p style={style}>{currentUrl}</p>;
+        return <p className={classNames}>{currentUrl}</p>;
     }
 }
 
