@@ -107,6 +107,9 @@ Or we could not worry about it, which is what I think I'm going to do for now.
 
 OK, basic readmark is rendering. The colors are le suck, though, so going to fix that a little bit right now.
 
+OK, done. Cribbed some styles from the old readmark app -- which really just means from Bootstrap, so I should probably
+import Bootstrap at some point and start using its styles instead.
+
 Things I want to expose as APIs that can get injected:
 1. Context generation / calculation for readmarks
     - Can be by domain (initial default), or more complex (later)
@@ -125,3 +128,17 @@ can just listen for actions that register its dependencies, and save them accord
     - In the API's namespace within the redux state?
     - Or internally?
     - I guess it depends on how hard it is to hook as a listener into the actions.
+    
+OK, I have the readmark display component working. So what's the next step?
+
+I guess the next step would be to feed it the current tab's URL. Which means I need a component to grab that. And since 
+I don't want to do a ton of manual testing, means it's time to start testing.
+
+The Chrome API isn't available in test, so we'll have to mock it.
+
+Actually, we'll be exposing the subset of the Chrome API that we want to use via some facade that does exactly what we
+want. So we'll test those pieces separately -- the component that loads the URL and provides it to its children, and the
+API that actually communicates with Chrome to load the current tab's URL.
+
+Let's work on the latter initially -- it's already written, and we just need to refactor a little to be friendly to this
+usage pattern, and write some tests.
