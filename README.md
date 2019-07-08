@@ -19,4 +19,13 @@ More like physical bookmarks than the way we usually use online bookmarks.
     - I'll punt on this until I have a concrete use case for it. As long as I'm the only user, I can basically use the
       code as a DB, and put all the config I want there. As long as I keep it in JSON and not hardcoded, it should be
       easy enough to port to some DB later.
-
+4. Support navigation for known blogs, comics, etc.
+    - For, e.g., Medium accounts, where there aren't "previous" and "next" links available on the page, it's
+      inconvenient to navigate to the next-most-recent article by a given author via the web interface.
+    - So a "next" button would be really handy for consuming my favorite Medium feeds. (Actually, I barely read Medium,
+      precisely because I like to find authors I really like and then follow them and read their stuff exhaustively, and
+      Medium makes that hard.)
+    - However, it might be possible to programmatically determine what's the next-most-recent article by a user, and
+      then navigate to it.
+      - At minimum, Medium publishes RSS feeds for authors, and the app could consume that -- so at least reading
+        incrementally through the author's latest content would be straightforward.

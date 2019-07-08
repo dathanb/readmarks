@@ -142,3 +142,32 @@ API that actually communicates with Chrome to load the current tab's URL.
 
 Let's work on the latter initially -- it's already written, and we just need to refactor a little to be friendly to this
 usage pattern, and write some tests.
+
+# 2019-07-07
+
+OK, I have the ChromeApi refactored. I'm not sure how much it's worth trying to test it outside of Chrome right now,
+so for now I'm just going to move on.
+
+So the next piece I've identified is the component that resolves the current tab url and passes it to its child
+component.
+
+That piece of logic depends on the chrome api -- we have to interrogate the current tab for its url. But rather than
+integrating with the chrome api independently, I think that context is probably best abstracted behind an API (or, 
+eventually, multiple APIs) that defines the sorts of operations Readmarks performs, and exposes implementations of them.
+
+So that's the next thing -- ReadmarksApi?
+
+Why wouldn't we just use the ChromeApi class directly? It's not likely that I'll rewrite this for Firefox, so abstracting
+away the browser doesn't make sense. And if we want to substitute in a mock version, it's just as easy to inject a mock
+of the ChromeApi as the ReadmarksApi.
+
+The only reason I can think of is that the ChromeApi includes both tab methods and bookmark methods -- and while the
+API for interrogating the current tab isn't something we're likely to want a second implementation of, the CRUD API for
+readmarks *is* something we're likely to want multiples of (bookmarks, local storage, remote storage). So depending
+directly on the chrome api for tab methods feels like we're going to depend directly on it for the bookmarks methods, too,
+and while it might be the right level of abstraction for the former, it's the wrong for the latter.
+
+Does that mean I should just be disciplined about not using the bookmark methods? Or does some hiding make sense?
+
+I think it makes sense to have a highly cohesive API for readmarks -- get the current context, get the readmark
+for the current context, save a readmark for the current context. So let's go ahead and do that.
