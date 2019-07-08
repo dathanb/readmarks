@@ -29,3 +29,4 @@ More like physical bookmarks than the way we usually use online bookmarks.
       then navigate to it.
       - At minimum, Medium publishes RSS feeds for authors, and the app could consume that -- so at least reading
         incrementally through the author's latest content would be straightforward.
+    - Looks like it's doable: http://pocketproduct.com/2016/medium-index/
