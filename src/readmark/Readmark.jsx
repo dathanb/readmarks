@@ -6,13 +6,19 @@ class ReadmarkComponent extends React.Component {
     render() {
         const {
             readmark,
-            currentUrl
+            currentUrl,
+            loading
         } = this.props;
+
         const hasReadmark = typeof(readmark) !== 'undefined' && readmark !== null;
         const url = hasReadmark ? readmark.url : null;
 
         let classNames = [];
 
+
+        if (loading) {
+            return <p>Loading...</p>
+        }
 
         if (!hasReadmark) {
             classNames += 'missing';
@@ -29,6 +35,7 @@ class ReadmarkComponent extends React.Component {
 ReadmarkComponent.propTypes = {
     readmark: PropTypes.shape({url: PropTypes.string}),
     currentUrl: PropTypes.string.isRequired,
+    loading: PropTypes.bool,
 };
 
 export {
