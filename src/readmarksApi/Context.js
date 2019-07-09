@@ -12,6 +12,7 @@ class Context {
         return new Context(Context.getContextStringForUrl(url));
     }
 
+    // For now, it's just the domain
     static getContextStringForUrl(url) {
         let initialUrl = url;
         if (url.startsWith("http://")) {

@@ -2,6 +2,14 @@
 
 More like physical bookmarks than the way we usually use online bookmarks.
 
+# Development
+
+To develop on the extension,
+
+1. run `npm run build`
+2. From Chrome, load the `build/` directory as an unpacked extension
+3. To iterate on it, run `npm run watch` to get auto-building
+
 ## TODO
 
 1. Rewrite Chrome extension in React

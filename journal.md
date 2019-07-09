@@ -171,3 +171,32 @@ Does that mean I should just be disciplined about not using the bookmark methods
 
 I think it makes sense to have a highly cohesive API for readmarks -- get the current context, get the readmark
 for the current context, save a readmark for the current context. So let's go ahead and do that.
+
+# 2019-07-08
+
+OK, I'm waffling on the API idea. Does it make sense to have an API like that? Or should the coponents just dispatch
+actions directly?
+
+I kinda think that it does still make sense to have the API, though, because the thing about actions is that they have 
+a lifecycle, and if there are any actions that are internal to the API, we want them to get fired, but it doesn't make
+sense for the components to be responsible for firing them at the right time with the right payload, etc.
+
+And invoking API methods via actions seems weird, because of the loose coupling -- when do you know that the API is
+completely done? I think we'd have to resort to something like passing the API an action payload to dispatch when *it's*
+done, which seems like too much ceremony -- and a step backward, since we have promise chains now.
+
+Anyway, I guess actions are scoped to the UI, right? So if the UI needs to respond to something, that lifecycle is driven
+by actions. So we'd do something like
+
+```
+dispatch(someAction).
+    then(someApiCall).
+    then(dispatch(someActionCompleted).
+    catch(dispatch(someError))
+```
+
+Let's just run with that -- it'll prolly be fine, and if not, it'll be a learning experience.
+
+
+
+

@@ -3,8 +3,10 @@
 
 import { ReadmarkComponent } from './Readmark';
 import { Readmark } from './types';
+import CurrentReadmark from './CurrentReadmark'
 
 export {
+  CurrentReadmark,
   ReadmarkComponent,
   Readmark,
 };

@@ -1,14 +1,29 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { ReadmarkComponent, Readmark } from './readmark';
+import { ReadmarkComponent, CurrentReadmark, Readmark } from './readmark';
+
+const Hello = ({ name }) => {
+    return <div>{`hello from ${name}`}</div>;
+};
+
+const Foo = ({ render: View }) => {
+    return <View name="foo" />;
+};
 
 class App extends React.Component {
   render() {
       return (
           <div className="App">
-
+              <Foo render={Hello} />
+              <CurrentReadmark render={ReadmarkComponent} />
               <header className="App-header">
+                  TODO:
+                  <ul>
+                      <li>Load the current readmark</li>
+                      <li>Display it</li>
+                  </ul>
+                  <Foo render={Hello} />
                   <img src={logo} className="App-logo" alt="logo" />
                   <p>
                       Edit <code>src/App.js</code> and save to reload.
@@ -28,14 +43,6 @@ class App extends React.Component {
                       readmark={new Readmark("http://www.example.com/1")}
                       currentUrl={"http://www.example.com/1"}
                   />
-                  <a
-                      className="App-link"
-                      href="https://reactjs.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                  >
-                      Learn React
-                  </a>
               </header>
           </div>
       );
