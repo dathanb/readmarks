@@ -15,7 +15,6 @@ class ReadmarkComponent extends React.Component {
 
         let classNames = [];
 
-
         if (loading) {
             return <p>Loading...</p>
         }

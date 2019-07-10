@@ -15,22 +15,29 @@ class CurrentReadmark extends React.Component {
     componentDidMount() {
         const { readmarksApi } = this.props;
 
-        const urlPromise = readmarksApi.getCurrentUrl()
-            .then(url => this.setState({currentUrl: url}));
+        const urlPromise = readmarksApi.getCurrentUrl();
         const readmarkPromise = readmarksApi.getReadmarkForCurrentContext()
-            .then(readmark => this.setState({readmark}));
+            .catch(() => null);
 
-        return Promise.all([urlPromise, readmarkPromise]);
+        return Promise.all([urlPromise, readmarkPromise])
+            .then(results => {
+                return this.setState(() => ({
+                    loading: false,
+                    currentUrl: results[0],
+                    readmark: results[1],
+                }));
+            });
     }
 
     render() {
+        const { render: Children } = this.props;
         const {
-            render: Children,
             currentUrl,
             readmark,
-        } = this.props;
+            loading,
+        } = this.state;
 
-        return <Children loading={this.state.loading }
+        return <Children loading={loading}
                          currentUrl={currentUrl}
                          readmark={readmark}
         />

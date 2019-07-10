@@ -1,3 +1,5 @@
+import { Readmark } from '../readmark';
+
 class BookmarksStorageApi {
     constructor(chromeApi, contextApi) {
         this.chromeApi = chromeApi;
@@ -5,7 +7,7 @@ class BookmarksStorageApi {
     }
 
     getReadmarkForContext(context) {
-        return this.getExistingBookmark(context).then(bookmark => bookmark.url);
+        return this.getExistingBookmark(context).then(bookmark => new Readmark(bookmark.url));
     }
 
     getExistingBookmark(context) {

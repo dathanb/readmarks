@@ -23,12 +23,20 @@ class Context {
 
         let host = url.substr(0, url.indexOf("/"));
 
-        console.debug("picking host=" + host + " for url " + initialUrl);
+        console.log("picking host=" + host + " for url " + initialUrl);
         return host
     }
 
     constructor(contextString) {
         this.contextString = contextString;
+    }
+
+    matches(other) {
+        if (other instanceof Context) {
+            return this.contextString === other.contextString;
+        } else {
+            return this.contextString === Context.forUrl(url).contextString;
+        }
     }
 }
 
