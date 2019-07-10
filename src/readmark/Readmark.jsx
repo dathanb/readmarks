@@ -34,7 +34,7 @@ class ReadmarkComponent extends React.Component {
 
 ReadmarkComponent.propTypes = {
     readmark: PropTypes.shape({url: PropTypes.string}),
-    currentUrl: PropTypes.string.isRequired,
+    currentUrl: PropTypes.string,
     loading: PropTypes.bool,
 };
 

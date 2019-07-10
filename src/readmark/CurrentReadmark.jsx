@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Readmark } from './types';
 
 /**
@@ -6,24 +7,41 @@ import { Readmark } from './types';
  */
 class CurrentReadmark extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = { loading: true };
     }
 
     componentDidMount() {
-        new Promise(resolve => setTimeout(resolve, 5000)).
-            then(() => this.setState({loading: false}));
+        const { readmarksApi } = this.props;
+
+        const urlPromise = readmarksApi.getCurrentUrl()
+            .then(url => this.setState({currentUrl: url}));
+        const readmarkPromise = readmarksApi.getReadmarkForCurrentContext()
+            .then(readmark => this.setState({readmark}));
+
+        return Promise.all([urlPromise, readmarkPromise]);
     }
 
     render() {
-        const { render: Children } = this.props;
+        const {
+            render: Children,
+            currentUrl,
+            readmark,
+        } = this.props;
 
         return <Children loading={this.state.loading }
-                         currentUrl={"https://www.example.com"}
-                         readmark={new Readmark("https://www.example.com")}
+                         currentUrl={currentUrl}
+                         readmark={readmark}
         />
     }
 }
+
+CurrentReadmark.propTypes = {
+    readmarksApi: PropTypes.shape({
+        getCurrentUrl: PropTypes.func,
+        getReadmarkForCurrentContext: PropTypes.func,
+    }),
+};
 
 export default CurrentReadmark;
