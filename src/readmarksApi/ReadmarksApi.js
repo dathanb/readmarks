@@ -1,13 +1,24 @@
 import Context from './Context';
+import {
+    getCurrentReadmark,
+    getCurrentReadmarkComplete
+} from './actions';
 
 class ReadmarksApi {
-    constructor(chromeApi, storageApi) {
+    constructor(chromeApi, storageApi, store) {
         this.tabApi = chromeApi;
         this.storageApi = storageApi;
+        this.store = store;
     }
 
     getReadmarkForCurrentContext() {
-        return this.getCurrentContext().then(context => this.storageApi.getReadmarkForContext(context));
+        this.store.dispatch(getCurrentReadmark())
+        return this.getCurrentContext()
+            .then(context => this.storageApi.getReadmarkForContext(context))
+            .then(readmark => {
+                this.store.dispatch(getCurrentReadmarkComplete(readmark));
+                return readmark;
+            });
     }
 
     getCurrentContext() {

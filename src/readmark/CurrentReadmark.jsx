@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Readmark } from './types';
 
 /**
  * Fetches the current URL and the readmark for the corresponding context, and passes them through to a child component.

@@ -10,12 +10,15 @@ import { ReadmarksApi, Context } from './readmarksApi';
 import { ChromeApi } from './chromeApi';
 import { BookmarksStorageApi } from './storageApi';
 
-const store = createStore(rootReducer);
+const store = createStore(
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const contextApi = Context;
 const chromeApi = new ChromeApi();
 const storageApi = new BookmarksStorageApi(chromeApi, contextApi);
-const readmarksApi = new ReadmarksApi(chromeApi, storageApi);
+const readmarksApi = new ReadmarksApi(chromeApi, storageApi, store);
 
 ReactDOM.render(<Provider store={store}><App readmarksApi={readmarksApi}/></Provider>, document.getElementById('root'));
 
