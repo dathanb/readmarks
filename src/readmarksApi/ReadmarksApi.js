@@ -1,7 +1,7 @@
 import Context from './Context';
 import {
-    getCurrentReadmark,
-    getCurrentReadmarkComplete
+    getContextReadmark,
+    getContextReadmarkComplete
 } from './actions';
 
 class ReadmarksApi {
@@ -11,12 +11,12 @@ class ReadmarksApi {
         this.store = store;
     }
 
-    getReadmarkForCurrentContext() {
-        this.store.dispatch(getCurrentReadmark())
+    getContextReadmark() {
+        this.store.dispatch(getContextReadmark())
         return this.getCurrentContext()
-            .then(context => this.storageApi.getReadmarkForContext(context))
+            .then(context => this.storageApi.getContextReadmark(context))
             .then(readmark => {
-                this.store.dispatch(getCurrentReadmarkComplete(readmark));
+                this.store.dispatch(getContextReadmarkComplete(readmark));
                 return readmark;
             });
     }

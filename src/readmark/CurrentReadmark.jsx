@@ -15,7 +15,7 @@ class CurrentReadmark extends React.Component {
         const { readmarksApi } = this.props;
 
         const urlPromise = readmarksApi.getCurrentUrl();
-        const readmarkPromise = readmarksApi.getReadmarkForCurrentContext()
+        const readmarkPromise = readmarksApi.getContextReadmark()
             .catch(() => null);
 
         return Promise.all([urlPromise, readmarkPromise])
@@ -46,7 +46,7 @@ class CurrentReadmark extends React.Component {
 CurrentReadmark.propTypes = {
     readmarksApi: PropTypes.shape({
         getCurrentUrl: PropTypes.func,
-        getReadmarkForCurrentContext: PropTypes.func,
+        getContextReadmark: PropTypes.func,
     }),
 };
 
