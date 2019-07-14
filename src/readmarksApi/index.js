@@ -9,7 +9,9 @@ import {
     CONTEXT_READMARK_KEY,
 } from './reducer';
 import {
-    getContextReadmarkFromState
+    getContextReadmarkFromState,
+    getContextReadmarkResolutionStatusFromState,
+    getCurrentUrlFromState,
 } from './state';
 
 export {
@@ -19,4 +21,6 @@ export {
     READMARKS_NAMESPACE,
     CONTEXT_READMARK_KEY,
     getContextReadmarkFromState,
+    getContextReadmarkResolutionStatusFromState,
+    getCurrentUrlFromState,
 };

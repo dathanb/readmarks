@@ -225,3 +225,7 @@ OK, I have one method in the Readmarks API dispatching actions, and I've verifie
 reducer.
 
 Now it's time to make the state available as props to the Readmark component.
+
+OK, making good progress. The next step (writing it down here so I don't forget) is to also load the current URL
+for the current tab and make it available in the redux store, map it to props, and depend on it from there instead of
+the React component state.

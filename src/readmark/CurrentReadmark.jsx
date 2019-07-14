@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getContextReadmarkFromState } from '../readmarksApi';
+import {
+    getContextReadmarkFromState,
+    getContextReadmarkResolutionStatusFromState,
+    getCurrentUrlFromState,
+} from '../readmarksApi';
 
 /**
  * Fetches the current URL and the readmark for the corresponding context, and passes them through to a child component.
@@ -16,31 +20,22 @@ class CurrentReadmark extends React.Component {
     componentDidMount() {
         const { readmarksApi } = this.props;
 
-        const urlPromise = readmarksApi.getCurrentUrl();
-        const readmarkPromise = readmarksApi.getContextReadmark()
+        return readmarksApi.getCurrentUrl()
+            .then(() => readmarksApi.getContextReadmark())
             .catch(() => null);
-
-        return Promise.all([urlPromise, readmarkPromise])
-            .then(results => {
-                return this.setState(() => ({
-                    loading: false,
-                    currentUrl: results[0],
-                    readmark: results[1],
-                }));
-            });
     }
 
     render() {
-        const { render: Children } = this.props;
         const {
-            currentUrl,
-            readmark,
+            render: Children,
+            contextReadmark,
             loading,
-        } = this.state;
+            currentUrl,
+        } = this.props;
 
         return <Children loading={loading}
                          currentUrl={currentUrl}
-                         readmark={readmark}
+                         readmark={contextReadmark}
         />
     }
 }
@@ -54,7 +49,9 @@ CurrentReadmark.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        contextReadmark: getContextReadmarkFromState(state)
+        contextReadmark: getContextReadmarkFromState(state),
+        currentUrl: getCurrentUrlFromState(state),
+        loading: getContextReadmarkResolutionStatusFromState(state) === "UNRESOLVED",
     };
 }
 

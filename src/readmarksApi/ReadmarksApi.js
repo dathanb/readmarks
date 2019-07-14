@@ -1,7 +1,11 @@
 import Context from './Context';
 import {
     getContextReadmark,
-    getContextReadmarkComplete
+    getContextReadmarkComplete,
+    getContextReadmarkError,
+    getCurrentUrl,
+    getCurrentUrlComplete,
+    getCurrentUrlError,
 } from './actions';
 
 class ReadmarksApi {
@@ -18,6 +22,8 @@ class ReadmarksApi {
             .then(readmark => {
                 this.store.dispatch(getContextReadmarkComplete(readmark));
                 return readmark;
+            }).catch(error => {
+                this.store.dispatch(getContextReadmarkError(new Error(error)));
             });
     }
 
@@ -26,7 +32,16 @@ class ReadmarksApi {
     }
 
     getCurrentUrl() {
-        return this.tabApi.getCurrentTabUrl();
+        this.store.dispatch(getCurrentUrl());
+        return this.tabApi.getCurrentTabUrl()
+            .then(url => {
+                this.store.dispatch(getCurrentUrlComplete(url));
+                return url;
+            })
+            .catch(error => {
+                this.store.dispatch(getCurrentUrlError(error));
+                return null;
+            });
     }
 }
 
