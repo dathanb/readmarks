@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Readmark } from './types';
+import { connect } from 'react-redux';
+import {
+    getContextReadmarkFromState,
+    getContextReadmarkResolutionStatusFromState,
+    getCurrentUrlFromState,
+} from '../readmarksApi';
 
 /**
  * Fetches the current URL and the readmark for the corresponding context, and passes them through to a child component.
@@ -15,31 +20,22 @@ class CurrentReadmark extends React.Component {
     componentDidMount() {
         const { readmarksApi } = this.props;
 
-        const urlPromise = readmarksApi.getCurrentUrl();
-        const readmarkPromise = readmarksApi.getReadmarkForCurrentContext()
+        return readmarksApi.getCurrentUrl()
+            .then(() => readmarksApi.getContextReadmark())
             .catch(() => null);
-
-        return Promise.all([urlPromise, readmarkPromise])
-            .then(results => {
-                return this.setState(() => ({
-                    loading: false,
-                    currentUrl: results[0],
-                    readmark: results[1],
-                }));
-            });
     }
 
     render() {
-        const { render: Children } = this.props;
         const {
-            currentUrl,
-            readmark,
+            render: Children,
+            contextReadmark,
             loading,
-        } = this.state;
+            currentUrl,
+        } = this.props;
 
         return <Children loading={loading}
                          currentUrl={currentUrl}
-                         readmark={readmark}
+                         readmark={contextReadmark}
         />
     }
 }
@@ -47,8 +43,16 @@ class CurrentReadmark extends React.Component {
 CurrentReadmark.propTypes = {
     readmarksApi: PropTypes.shape({
         getCurrentUrl: PropTypes.func,
-        getReadmarkForCurrentContext: PropTypes.func,
+        getContextReadmark: PropTypes.func,
     }),
 };
 
-export default CurrentReadmark;
+function mapStateToProps(state) {
+    return {
+        contextReadmark: getContextReadmarkFromState(state),
+        currentUrl: getCurrentUrlFromState(state),
+        loading: getContextReadmarkResolutionStatusFromState(state) === "UNRESOLVED",
+    };
+}
+
+export default connect(mapStateToProps)(CurrentReadmark);

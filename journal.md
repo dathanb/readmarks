@@ -197,6 +197,35 @@ dispatch(someAction).
 
 Let's just run with that -- it'll prolly be fine, and if not, it'll be a learning experience.
 
+# 2019-07-10
 
+OK, so loading the current readmark works fine.
 
+Now I want to add a "load readmark" button to navigate to the readmark for the current context.
 
+The challenge, though, is that those buttons don't need to be part of the `CurrentReadmark` component, and currently
+there's no way for the `CurrentReadmark` component to pick up on the fact that the url has changed, or that the readmark
+for the current context has changed.
+
+So it's time to bring Redux into the mix, I think.
+
+What we don't want to do, though, is to have CurrentReadmark send some action when it loads the readmark, and also have
+the LoadReadmark and SaveReadmark buttons have to dispatch the same action. That's pushing too much responsibility onto
+the client of the API.
+
+Instead, `ReadmarksApi` should dispatch those actions whenever the relevant methods are called. And so `CurrentReadmark`
+component doesn't even need to handle the action dispatches itself -- it just calls the `ReadmarkApi#loadCurrentReadmark`
+method, which will handle making sure the right actions get dispatched.
+
+So the first step is to expose Redux to the `ReadmarksApi` so it can actually dispatch those actions.
+
+# 2019-07-13
+
+OK, I have one method in the Readmarks API dispatching actions, and I've verified that they get picked up by the
+reducer.
+
+Now it's time to make the state available as props to the Readmark component.
+
+OK, making good progress. The next step (writing it down here so I don't forget) is to also load the current URL
+for the current tab and make it available in the redux store, map it to props, and depend on it from there instead of
+the React component state.

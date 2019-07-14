@@ -1,12 +1,10 @@
-const initialState = {
-  READMARK_STATE: 'UNRESOLVED'
-};
+import {
+    READMARKS_NAMESPACE,
+    reducer as readmarksReducer,
+} from './readmarksApi';
 
-function rootReducer(state = {}, action) {
-  if (typeof state === 'undefined') {
-    return initialState;
-  }
-  return state
-}
+import { combineReducers } from 'redux';
 
-export { rootReducer }
+const composedReducer = combineReducers({[READMARKS_NAMESPACE]: readmarksReducer});
+
+export default composedReducer;

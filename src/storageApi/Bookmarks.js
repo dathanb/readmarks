@@ -1,4 +1,4 @@
-import { Readmark } from '../readmark';
+import {Readmark} from '../readmark';
 
 class BookmarksStorageApi {
     constructor(chromeApi, contextApi) {
@@ -6,13 +6,13 @@ class BookmarksStorageApi {
         this.contextApi = contextApi;
     }
 
-    getReadmarkForContext(context) {
+    getContextReadmark(context) {
         return this.getExistingBookmark(context).then(bookmark => new Readmark(bookmark.url));
     }
 
     getExistingBookmark(context) {
         return this.getReadmarkFolder().then(folder => {
-                for (let i=0; i<folder.children.length; i++) {
+                for (let i = 0; i < folder.children.length; i++) {
                     let bookmark = folder.children[i];
                     if (this.contextApi.forUrl(bookmark.url).matches(context)) {
                         return bookmark;
@@ -28,7 +28,7 @@ class BookmarksStorageApi {
 
     getReadmarkFolder() {
         return this.getOtherBookmarks().then(tree => {
-                for (var i=0; i<tree.children.length; i++) {
+                for (var i = 0; i < tree.children.length; i++) {
                     if (tree.children[i].title == "ReadMarks") {
                         return tree.children[i]
                     }
@@ -40,9 +40,9 @@ class BookmarksStorageApi {
 
     getOtherBookmarks() {
         return this.chromeApi.getBookmarkTree().then(
-            function(tree) {
+            function (tree) {
                 var root = tree[0]
-                for (var i=0; i<root.children.length; i++) {
+                for (var i = 0; i < root.children.length; i++) {
                     if (root.children[i].title == "Other Bookmarks") {
                         return root.children[i]
                     }
@@ -54,24 +54,24 @@ class BookmarksStorageApi {
 
     saveReadmark(url) {
         return this.getExistingBookmark(url).then(
-            function(bookmark) {
+            function (bookmark) {
                 return this.updateBookmark(bookmark, url)
             },
-            function(reason) {
+            function (reason) {
                 return this.createBookmark(url)
             }
         )
     }
 
     updateBookmark(bookmark, url) {
-        return this.chromeApi.getCurrentTab().then(function(tab) {
+        return this.chromeApi.getCurrentTab().then(function (tab) {
             return this.chromeApi.updateBookmark(bookmark.id, tab.title, url)
         })
     }
 
     createBookmark(url) {
-        return this.getReadmarkFolder().then(function(folder) {
-            return this.chromeApi.getCurrentTab().then(function(tab){
+        return this.getReadmarkFolder().then(function (folder) {
+            return this.chromeApi.getCurrentTab().then(function (tab) {
                 return this.chromeApi.createBookmark(folder.id, null, tab.title, url)
             })
         })
@@ -82,8 +82,8 @@ class BookmarksStorageApi {
         // Calling getOtherBookmarks here and in getReadmarkFolder is potentially inefficient
         // we might need to keep track of the result the first time around
         return this.getOtherBookmarks().then(
-            function(tree) {
-                return chromeService.createBookmark(tree.id,
+            function (tree) {
+                return this.chromeApi.createBookmark(tree.id,
                     null,
                     "ReadMarks",
                     null
