@@ -3,8 +3,20 @@
 
 import ReadmarksApi from './ReadmarksApi';
 import Context from './Context';
+import {
+    reducer,
+    READMARKS_NAMESPACE,
+    CONTEXT_READMARK_KEY,
+} from './reducer';
+import {
+    getContextReadmarkFromState
+} from './state';
 
 export {
     ReadmarksApi,
     Context,
+    reducer,
+    READMARKS_NAMESPACE,
+    CONTEXT_READMARK_KEY,
+    getContextReadmarkFromState,
 };

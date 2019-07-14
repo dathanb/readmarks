@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getContextReadmarkFromState } from '../readmarksApi';
 
 /**
  * Fetches the current URL and the readmark for the corresponding context, and passes them through to a child component.
@@ -50,4 +52,10 @@ CurrentReadmark.propTypes = {
     }),
 };
 
-export default CurrentReadmark;
+function mapStateToProps(state) {
+    return {
+        contextReadmark: getContextReadmarkFromState(state)
+    };
+}
+
+export default connect(mapStateToProps)(CurrentReadmark);

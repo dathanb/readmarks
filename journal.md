@@ -218,3 +218,10 @@ component doesn't even need to handle the action dispatches itself -- it just ca
 method, which will handle making sure the right actions get dispatched.
 
 So the first step is to expose Redux to the `ReadmarksApi` so it can actually dispatch those actions.
+
+# 2019-07-13
+
+OK, I have one method in the Readmarks API dispatching actions, and I've verified that they get picked up by the
+reducer.
+
+Now it's time to make the state available as props to the Readmark component.

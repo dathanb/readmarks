@@ -5,13 +5,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { rootReducer } from './reducer';
+import reducer from './reducer';
 import { ReadmarksApi, Context } from './readmarksApi';
 import { ChromeApi } from './chromeApi';
 import { BookmarksStorageApi } from './storageApi';
-
 const store = createStore(
-    rootReducer,
+    reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
