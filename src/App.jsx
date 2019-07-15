@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
-import { ReadmarkComponent, CurrentReadmark, Readmark } from './readmark';
+import {
+    ReadmarkComponent,
+    CurrentReadmark,
+} from './readmark';
 
 /**
  * The main App.
@@ -21,6 +24,9 @@ class App extends React.Component {
                     readmarksApi={readmarksApi}
                     render={ReadmarkComponent}
                 />
+                <button onClick={() => readmarksApi.loadContextReadmark()}>Load Readmark</button>
+                <button onClick={() => readmarksApi.saveContextReadmark()}>Save Readmark</button>
+
             </div>
         );
     }

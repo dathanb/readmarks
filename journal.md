@@ -229,3 +229,63 @@ Now it's time to make the state available as props to the Readmark component.
 OK, making good progress. The next step (writing it down here so I don't forget) is to also load the current URL
 for the current tab and make it available in the redux store, map it to props, and depend on it from there instead of
 the React component state.
+
+# 2019-07-14
+
+OK, got it wired up through redux. Now when we visit a site, the plugin will render the current url with coloration
+based on whether it matches the context readmark.
+
+Next up is loading the readmark for the current context. We need a button for that.
+
+Having trouble because I conflated "getContextReadmark" and "getCurrentContextReadmark". In refactoring, it just feels
+like things are a little too verbose. So I'm wondering if it doesn't make sense to do away with the idea of the "current
+context", at least as a concern that's actually exposed in the API.
+
+If I do, then instead of querying "currentContextReadmark", I'd get the current context from Redux state, then query
+for the readmark for that context. And we'd have to do that every time -- but that's probably fine.
+
+And then `getContextReadmark` is unambiguously "get Readmark for Context". And since that's the only way to get a
+stored Readmark, we'd probably just go ahead and make it `getReadmark(context)`.
+
+I like that better, because it means the ReadmarksApi becomes stateless, and state is kept in React.
+
+Then, though, I don't think it makes sense for the ReadmarksApi to dispatch actions related to the current context.
+Mutating global state as a side effect of calling the api is definitely not stateless!
+
+So where does that happen?
+
+The obvious case is to make it happen within the components calling the API -- they're stateful, so mutating state
+there seems fine.
+
+Let's move that direction -- move the concept of the "current context" into the CurrentReadmark component, and out of
+the ReadmarksApi.
+
+Eventually, we can maybe move some of that logic into a stateful helper that simplifies `CurrentReadmark`.
+
+Where does state belong, then? What portions of the codebase are responsible for maintaining that state? i.e., what's
+the right scope for defining reducers, namespace constants, key constants, etc.
+
+It seemed at the time like it made sense to do all that in the concept of the ReadmarksApi. But I guess not... I do think
+there's room there for something, though... I guess I'm struggling with the dichotomy of application state. Some state
+is only relevant to the UI, whereas some makes sense for the application itself.
+
+In React, the view drives the entire application, so maybe there isn't such a dichotomy? But I do think that we'll get
+to a point where it makes sense to keep some state that's not exposed to the UI. But I don't know if Redux is the right
+mechanism for maintaining that state?
+
+Yes, probably so -- Redux is really just a mechanism for aggregating state, and while it and the tooling around it
+are particularly well-suited to generating UIs, there's nothing UI specific about it per se.
+
+So if the application needs to be stateful separately from the view state, we can use a separate Redux namespace for
+that -- but I don't think it makes sense for the view to access or share that state directly. Instead, the view should
+be responsible for dispatching actions that update view state. If the application logic or API dispatch actions, the
+view should remain unaware of that. So we'll be dispatching actions more often than we might need to to get the job done,
+strictly speaking. But that's a small price to pay for maintainable code.
+
+Come to think of it, the application is already not really stateless -- since we'll need to expose `getCurrentContext`
+regardless, and that's stateful per se. Though I guess the application isn't maintaining its own state -- it's just
+consuming tab / browser state -- so maybe it's not really stateful, in the way we usually mean it.
+
+OK, so the next step is to add a reducer for the `CurrentReadmark` component, and to dispatch from `CurrentReadmark`.
+
+Not done, but making progress.

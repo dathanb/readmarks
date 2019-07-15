@@ -1,10 +1,10 @@
 import {
-    READMARKS_NAMESPACE,
-    reducer as readmarksReducer,
-} from './readmarksApi';
+    CURRENT_READMARK_NAMESPACE,
+    reducer as currentReadmarkReducer,
+} from './readmark';
 
 import { combineReducers } from 'redux';
 
-const composedReducer = combineReducers({[READMARKS_NAMESPACE]: readmarksReducer});
+const composedReducer = combineReducers({[CURRENT_READMARK_NAMESPACE]: currentReadmarkReducer});
 
 export default composedReducer;

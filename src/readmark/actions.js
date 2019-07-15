@@ -1,26 +1,26 @@
-const GET_CONTEXT_READMARK = "GET_CONTEXT_READMARK";
-const GET_CONTEXT_READMARK_COMPLETE = "GET_CONTEXT_READMARK_COMPLETE";
+const GET_CURRENT_CONTEXT_READMARK = "GET_CURRENT_CONTEXT_READMARK";
+const GET_CURRENT_CONTEXT_READMARK_COMPLETE = "GET_CURRENT_CONTEXT_READMARK_COMPLETE";
 
 const GET_CURRENT_URL = "GET_CURRENT_URL";
 const GET_CURRENT_URL_COMPLETE = "GET_CURRENT_URL_COMPLETE";
 
 
-function getContextReadmark() {
+function getCurrentContextReadmark() {
     return {
-        type: GET_CONTEXT_READMARK
+        type: GET_CURRENT_CONTEXT_READMARK
     };
 }
 
-function getContextReadmarkComplete(readmark) {
+function getCurrentContextReadmarkComplete(readmark) {
     return {
-        type: GET_CONTEXT_READMARK_COMPLETE,
+        type: GET_CURRENT_CONTEXT_READMARK_COMPLETE,
         payload: readmark
     };
 }
 
-function getContextReadmarkError(error) {
+function getCurrentContextReadmarkError(error) {
     return {
-        type: GET_CONTEXT_READMARK_COMPLETE,
+        type: GET_CURRENT_CONTEXT_READMARK_COMPLETE,
         payload: error,
         error: true,
     };
@@ -48,11 +48,11 @@ function getCurrentUrlError(error) {
 }
 
 export {
-    GET_CONTEXT_READMARK,
-    GET_CONTEXT_READMARK_COMPLETE,
-    getContextReadmark,
-    getContextReadmarkComplete,
-    getContextReadmarkError,
+    GET_CURRENT_CONTEXT_READMARK,
+    GET_CURRENT_CONTEXT_READMARK_COMPLETE,
+    getCurrentContextReadmark,
+    getCurrentContextReadmarkComplete,
+    getCurrentContextReadmarkError,
 
     GET_CURRENT_URL,
     GET_CURRENT_URL_COMPLETE,

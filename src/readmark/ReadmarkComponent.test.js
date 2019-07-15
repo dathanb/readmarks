@@ -1,7 +1,7 @@
 import React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import {ReadmarkComponent} from './Readmark';
-import {Readmark} from './types';
+import {Readmark} from '../readmarksApi/types/Readmark';
 
 describe('ReadmarkComponent', () => {
     let renderer;

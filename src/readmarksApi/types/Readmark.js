@@ -7,6 +7,4 @@ class Readmark {
     }
 }
 
-export {
-    Readmark
-}
+export default Readmark;

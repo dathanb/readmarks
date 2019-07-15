@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-    getContextReadmarkFromState,
-    getContextReadmarkResolutionStatusFromState,
+    getCurrentContextReadmarkFromState,
+    getCurrentContextReadmarkStatusFromState,
     getCurrentUrlFromState,
-} from '../readmarksApi';
+} from './reducer';
 
 /**
  * Fetches the current URL and the readmark for the corresponding context, and passes them through to a child component.
@@ -13,15 +13,13 @@ import {
 class CurrentReadmark extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = { loading: true };
     }
 
     componentDidMount() {
         const { readmarksApi } = this.props;
 
         return readmarksApi.getCurrentUrl()
-            .then(() => readmarksApi.getContextReadmark())
+            .then(() => { readmarksApi.getCurrentContextReadmark(); })
             .catch(() => null);
     }
 
@@ -43,15 +41,15 @@ class CurrentReadmark extends React.Component {
 CurrentReadmark.propTypes = {
     readmarksApi: PropTypes.shape({
         getCurrentUrl: PropTypes.func,
-        getContextReadmark: PropTypes.func,
+        getCurrentContextReadmark: PropTypes.func,
     }),
 };
 
 function mapStateToProps(state) {
     return {
-        contextReadmark: getContextReadmarkFromState(state),
+        contextReadmark: getCurrentContextReadmarkFromState(state),
         currentUrl: getCurrentUrlFromState(state),
-        loading: getContextReadmarkResolutionStatusFromState(state) === "UNRESOLVED",
+        loading: getCurrentContextReadmarkStatusFromState(state) === "UNRESOLVED",
     };
 }
 
