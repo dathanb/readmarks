@@ -24,7 +24,7 @@ class ChromeApi {
     }
 
     createBookmark(parent, index, title, url) {
-        return Promise.new((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             let bookmark = {}
             if (!(parent === null)) {
                 bookmark['parentId'] = parent

@@ -8,7 +8,8 @@ import {
 } from './reducer';
 import {
     getCurrentUrlComplete,
-    getCurrentContextReadmarkComplete
+    getCurrentContextReadmarkComplete,
+    getCurrentContextReadmarkError,
 } from './actions';
 
 /**
@@ -29,6 +30,9 @@ class CurrentReadmark extends React.Component {
             })
             .then(readmark => {
                 dispatch(getCurrentContextReadmarkComplete(readmark));
+            })
+            .catch(error => {
+                dispatch(getCurrentContextReadmarkError(error));
             });
     }
 

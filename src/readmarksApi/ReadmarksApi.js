@@ -1,10 +1,9 @@
 import Context from './types/Context';
 
 class ReadmarksApi {
-    constructor(chromeApi, storageApi, store) {
+    constructor(chromeApi, storageApi) {
         this.chromeApi = chromeApi;
         this.storageApi = storageApi;
-        this.store = store;
     }
 
     getCurrentContextReadmark() {
@@ -22,14 +21,17 @@ class ReadmarksApi {
     }
 
     navigateToCurrentContextReadmark() {
-        return this.getCurrentContext()
-            .then(context => this.storageApi.getContextReadmark(context))
+        return this.getCurrentContextReadmark()
+            // .then(context => this.storageApi.getContextReadmark(context))
             .then(readmark => this.chromeApi.setCurrentTabUrl(readmark.url));
     }
 
     saveCurrentContextReadmark() {
         this.getCurrentUrl()
-            .then(url => this.storageApi.saveReadmark(url));
+            .then(url => {
+                const context = Context.forUrl(url);
+                return this.storageApi.saveReadmark(context, url);
+            });
     }
 }
 
