@@ -1,9 +1,12 @@
-import {Readmark} from '../readmark';
+import {
+    Readmark
+} from '../readmark';
 
 class BookmarksStorageApi {
-    constructor(chromeApi, contextApi) {
+    constructor(chromeApi, contextApi, state) {
         this.chromeApi = chromeApi;
         this.contextApi = contextApi;
+        this.state = state;
     }
 
     getContextReadmark(context) {
@@ -29,7 +32,7 @@ class BookmarksStorageApi {
     getReadmarkFolder() {
         return this.getOtherBookmarks().then(tree => {
                 for (var i = 0; i < tree.children.length; i++) {
-                    if (tree.children[i].title == "ReadMarks") {
+                    if (tree.children[i].title === "ReadMarks") {
                         return tree.children[i]
                     }
                 }
@@ -43,7 +46,7 @@ class BookmarksStorageApi {
             function (tree) {
                 var root = tree[0]
                 for (var i = 0; i < root.children.length; i++) {
-                    if (root.children[i].title == "Other Bookmarks") {
+                    if (root.children[i].title === "Other Bookmarks") {
                         return root.children[i]
                     }
                 }

@@ -2,25 +2,11 @@
 // [Ducks](https://medium.com/building-crowdriff/react-redux-file-architecture-ducks-it-up-6b32eaaba341)
 
 import ReadmarksApi from './ReadmarksApi';
-import Context from './Context';
-import {
-    reducer,
-    READMARKS_NAMESPACE,
-    CONTEXT_READMARK_KEY,
-} from './reducer';
-import {
-    getContextReadmarkFromState,
-    getContextReadmarkResolutionStatusFromState,
-    getCurrentUrlFromState,
-} from './state';
+import Context from './types/Context';
+import Readmark from './types/Readmark';
 
 export {
     ReadmarksApi,
+    Readmark,
     Context,
-    reducer,
-    READMARKS_NAMESPACE,
-    CONTEXT_READMARK_KEY,
-    getContextReadmarkFromState,
-    getContextReadmarkResolutionStatusFromState,
-    getCurrentUrlFromState,
 };

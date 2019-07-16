@@ -1,47 +1,35 @@
-import Context from './Context';
-import {
-    getContextReadmark,
-    getContextReadmarkComplete,
-    getContextReadmarkError,
-    getCurrentUrl,
-    getCurrentUrlComplete,
-    getCurrentUrlError,
-} from './actions';
+import Context from './types/Context';
 
 class ReadmarksApi {
     constructor(chromeApi, storageApi, store) {
-        this.tabApi = chromeApi;
+        this.chromeApi = chromeApi;
         this.storageApi = storageApi;
         this.store = store;
     }
 
-    getContextReadmark() {
-        this.store.dispatch(getContextReadmark())
+    getCurrentContextReadmark() {
         return this.getCurrentContext()
-            .then(context => this.storageApi.getContextReadmark(context))
-            .then(readmark => {
-                this.store.dispatch(getContextReadmarkComplete(readmark));
-                return readmark;
-            }).catch(error => {
-                this.store.dispatch(getContextReadmarkError(new Error(error)));
-            });
+            .then(context => this.storageApi.getContextReadmark(context));
     }
 
     getCurrentContext() {
-        return this.tabApi.getCurrentTabUrl().then(url => Context.forUrl(url));
+        return this.chromeApi.getCurrentTabUrl().then(url => Context.forUrl(url));
     }
 
     getCurrentUrl() {
-        this.store.dispatch(getCurrentUrl());
-        return this.tabApi.getCurrentTabUrl()
-            .then(url => {
-                this.store.dispatch(getCurrentUrlComplete(url));
-                return url;
-            })
-            .catch(error => {
-                this.store.dispatch(getCurrentUrlError(error));
-                return null;
-            });
+        return this.chromeApi.getCurrentTabUrl()
+            .catch(() => null );
+    }
+
+    navigateToCurrentContextReadmark() {
+        return this.getCurrentContext()
+            .then(context => this.storageApi.getContextReadmark(context))
+            .then(readmark => this.chromeApi.setCurrentTabUrl(readmark.url));
+    }
+
+    saveCurrentContextReadmark() {
+        this.getCurrentUrl()
+            .then(url => this.storageApi.saveReadmark(url));
     }
 }
 

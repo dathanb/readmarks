@@ -35,7 +35,7 @@ class Context {
         if (other instanceof Context) {
             return this.contextString === other.contextString;
         } else {
-            return this.contextString === Context.forUrl(url).contextString;
+            return this.contextString === Context.forUrl(other).contextString;
         }
     }
 }
