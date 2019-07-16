@@ -1,4 +1,6 @@
-import {Readmark} from '../readmark';
+import {
+    Readmark
+} from '../readmark';
 
 class BookmarksStorageApi {
     constructor(chromeApi, contextApi, state) {

@@ -9,8 +9,7 @@ class ReadmarksApi {
 
     getCurrentContextReadmark() {
         return this.getCurrentContext()
-            .then(context => this.storageApi.getContextReadmark(context))
-            .catch(error => null);
+            .then(context => this.storageApi.getContextReadmark(context));
     }
 
     getCurrentContext() {

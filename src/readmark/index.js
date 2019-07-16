@@ -2,7 +2,7 @@
 // [Ducks](https://medium.com/building-crowdriff/react-redux-file-architecture-ducks-it-up-6b32eaaba341)
 
 import {ReadmarkComponent} from './Readmark';
-import {Readmark} from '../readmarksApi/types/Readmark';
+import {Readmark} from '../readmarksApi';
 import CurrentReadmark from './CurrentReadmark'
 import {
     CURRENT_READMARK_NAMESPACE,

@@ -288,4 +288,4 @@ consuming tab / browser state -- so maybe it's not really stateful, in the way w
 
 OK, so the next step is to add a reducer for the `CurrentReadmark` component, and to dispatch from `CurrentReadmark`.
 
-Not done, but making progress.
+Not done, but making progress. Next step is to dispatch actions from the `CurrentReadmark` component.

@@ -6,6 +6,10 @@ import {
     getCurrentContextReadmarkStatusFromState,
     getCurrentUrlFromState,
 } from './reducer';
+import {
+    getCurrentUrlComplete,
+    getCurrentContextReadmarkComplete
+} from './actions';
 
 /**
  * Fetches the current URL and the readmark for the corresponding context, and passes them through to a child component.
@@ -16,11 +20,16 @@ class CurrentReadmark extends React.Component {
     }
 
     componentDidMount() {
-        const { readmarksApi } = this.props;
+        const { readmarksApi, dispatch } = this.props;
 
         return readmarksApi.getCurrentUrl()
-            .then(() => { readmarksApi.getCurrentContextReadmark(); })
-            .catch(() => null);
+            .then(url => {
+                dispatch(getCurrentUrlComplete(url));
+                return readmarksApi.getCurrentContextReadmark();
+            })
+            .then(readmark => {
+                dispatch(getCurrentContextReadmarkComplete(readmark));
+            });
     }
 
     render() {
