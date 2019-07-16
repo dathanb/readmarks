@@ -1,10 +1,9 @@
 import Context from './types/Context';
 
 class ReadmarksApi {
-    constructor(chromeApi, storageApi, store) {
+    constructor(chromeApi, storageApi) {
         this.chromeApi = chromeApi;
         this.storageApi = storageApi;
-        this.store = store;
     }
 
     getCurrentContextReadmark() {

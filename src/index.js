@@ -17,7 +17,7 @@ const store = createStore(
 const contextApi = Context;
 const chromeApi = new ChromeApi();
 const storageApi = new BookmarksStorageApi(chromeApi, contextApi);
-const readmarksApi = new ReadmarksApi(chromeApi, storageApi, store);
+const readmarksApi = new ReadmarksApi(chromeApi, storageApi);
 
 ReactDOM.render(<Provider store={store}><App readmarksApi={readmarksApi}/></Provider>, document.getElementById('root'));
 
