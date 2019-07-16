@@ -28,7 +28,10 @@ class ReadmarksApi {
 
     saveCurrentContextReadmark() {
         this.getCurrentUrl()
-            .then(url => this.storageApi.saveReadmark(url));
+            .then(url => {
+                const context = Context.forUrl(url);
+                return this.storageApi.saveReadmark(context, url);
+            });
     }
 }
 
