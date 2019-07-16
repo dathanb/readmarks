@@ -24,8 +24,8 @@ class App extends React.Component {
                     readmarksApi={readmarksApi}
                     render={ReadmarkComponent}
                 />
-                <button onClick={() => readmarksApi.loadContextReadmark()}>Load Readmark</button>
-                <button onClick={() => readmarksApi.saveContextReadmark()}>Save Readmark</button>
+                <button onClick={() => readmarksApi.navigateToCurrentContextReadmark()}>Load Readmark</button>
+                <button onClick={() => readmarksApi.saveCurrentContextReadmark()}>Save Readmark</button>
 
             </div>
         );

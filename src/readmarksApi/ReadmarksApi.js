@@ -21,8 +21,8 @@ class ReadmarksApi {
     }
 
     navigateToCurrentContextReadmark() {
-        return this.getCurrentContext()
-            .then(context => this.storageApi.getContextReadmark(context))
+        return this.getCurrentContextReadmark()
+            // .then(context => this.storageApi.getContextReadmark(context))
             .then(readmark => this.chromeApi.setCurrentTabUrl(readmark.url));
     }
 
