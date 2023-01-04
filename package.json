@@ -33,7 +33,7 @@
     ]
   },
   "devDependencies": {
-    "cra-build-watch": "^1.4.1",
+    "cra-build-watch": "^3.4.0",
     "react-test-renderer": "^16.8.6"
   }
 }
